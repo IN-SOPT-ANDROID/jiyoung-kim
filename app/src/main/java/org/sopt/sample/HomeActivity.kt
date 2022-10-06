@@ -14,13 +14,9 @@ class HomeActivity : AppCompatActivity() {
         var getName = intent.getStringExtra("name")
         var getMBTI = intent.getStringExtra("mbti")
 
-
-        println(getName)
-        println(getMBTI)
-
         if(intent.hasExtra("name") && intent.hasExtra("mbti")){
-            binding.textView1.text = getName
-            binding.textView2.text = getMBTI
+            binding.textView1.text = "이름: " + getName
+            binding.textView2.text = "MBTI: " + getMBTI
 
         }
     }

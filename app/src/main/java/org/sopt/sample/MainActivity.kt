@@ -4,38 +4,65 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import com.google.android.material.snackbar.Snackbar
 import org.sopt.sample.databinding.ActivityMainBinding
 
 // [로그인 페이지]
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var startForResult: ActivityResultLauncher<Intent>
+    var id: String = ""
+    var pwd: String = ""
+    var mbti: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        println("36")
 
-        var getID = intent.getStringExtra("id")
-        var getPWD = intent.getStringExtra("pwd")
+        //signUp 화면으로부터 id,pwd,mbti 정보를 가져온다.
+        startForResult = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == RESULT_OK) {
+                println("31")
+                Snackbar.make(binding.root, "회원가입이 완료되었습니다", Snackbar.LENGTH_SHORT).show()
+                val getID = result.data?.getStringExtra("id") ?: ""
+                val getPWD = result.data?.getStringExtra("pwd")?:""
+                val getMBTI = result.data?.getStringExtra("mbti")?:""
+                id = getID
+                pwd = getPWD
+                mbti = getMBTI
+            }
+        }
+        println("41")
+        clickLoginBTN()
+        println("43")
+        clickSignUpBTN()
+
+    }
+    private fun clickLoginBTN(){
         binding.btnLogin.setOnClickListener(){
             val idText = binding.edtIdMain.text
             val pwdText = binding.idtPwdMain.text
-            println("idText: $idText")
-            println("pwdText: $pwdText")
-            println("getID    $getID")
-            println("getPWD    $getPWD")
-            println("DDD   ${idText.toString() == getID}")
-            println("GGGG  ${pwdText.toString() == getPWD}")
-            if(idText.toString() == getID && pwdText.toString() == getPWD){
-                intent.putExtra("name", "김지영")
-                Toast.makeText(this@MainActivity, "로그인에 성공했습니다", Toast.LENGTH_SHORT).show()
-                val intent1 = Intent(this, HomeActivity::class.java)
-                startActivity(intent1)
-            }
-        }
-        binding.btnSignup.setOnClickListener(){
-            val intent2 = Intent(this, SignUpActivity::class.java)
-            startActivity(intent2)
-        }
 
+            if(idText.toString() == id && pwdText.toString() == pwd){
+                Toast.makeText(this@MainActivity, "로그인에 성공했습니다", Toast.LENGTH_SHORT).show()
+
+            }
+            val intent1 = Intent(this, HomeActivity::class.java)
+            intent1.putExtra("name", "김지영")
+            intent1.putExtra("mbti",mbti)
+            startActivity(intent1)
+        }
+    }
+    private fun clickSignUpBTN(){
+        binding.btnSignup.setOnClickListener(){
+            val intent = Intent(this, SignUpActivity::class.java)
+            startForResult.launch(intent)
+        }
     }
 }
