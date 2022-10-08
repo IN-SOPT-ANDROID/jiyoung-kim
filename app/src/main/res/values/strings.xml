@@ -1,3 +1,34 @@
 <resources>
     <string name="app_name">INSOPTAndroidPractice</string>
+    <string name="signup">signup</string>
+    <string name="id">id</string>
+    <string name="input_id">input_id</string>
+    <string name="password">password</string>
+    <string name="input_pwd">input_pwd</string>
+    <string name="mbti">mbti</string>
+    <string name="input_mbti">input_mbti</string>
+    <string name="회원가입">btn_signUp</string>
+    <string name="btn_signUp">회원가입</string>
+    <string name="text_id">ID</string>
+    <string name="inpt_id">아이디를 입력하세요</string>
+    <string name="inpt_pwd">비밀번호를 입력하세요</string>
+    <string name="inpt_mbti">MBTI를 입력하세요</string>
+    <string name="text_signup">SIGNUP</string>
+    <string name="btn_signup">회원가입 완료</string>
+    <string name="textview2">textview2</string>
+    <string name="textview1">textview1</string>
+    <string name="welcome_to_sopt">welcome_to_sopt</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="text_pwd">비밀번호</string>
+    <string name="password_input">비밀번호를 입력하세요</string>
+    <string name="id_input">아이디를 입력하세요</string>
+    <string name="is_text">ID</string>
+    <string name="welcome_title">Welcome to sopt</string>
+    <string name="pwd">비밀번호</string>
+    <string name="mbti_">MBTI</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home_icon">홈</string>
+    <string name="icon_gallery">갤러리</string>
+    <string name="icon_search">검색</string>
 </resources>
