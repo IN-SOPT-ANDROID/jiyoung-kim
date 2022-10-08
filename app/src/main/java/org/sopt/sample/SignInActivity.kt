@@ -7,11 +7,10 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
-import org.sopt.sample.databinding.ActivityMainBinding
+import org.sopt.sample.databinding.ActivitySignInBinding
 
-// [로그인 페이지]
-class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+class SignInActivity : AppCompatActivity() {
+    private lateinit var binding: ActivitySignInBinding
     private lateinit var startForResult: ActivityResultLauncher<Intent>
     var id: String = ""
     var pwd: String = ""
@@ -19,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
         println("36")
 
@@ -46,11 +45,11 @@ class MainActivity : AppCompatActivity() {
     }
     private fun clickLoginBTN(){
         binding.btnLogin.setOnClickListener(){
-            val idText = binding.edtIdMain.text
-            val pwdText = binding.idtPwdMain.text
+            val idText = binding.edtIdMain.text.toString()
+            val pwdText = binding.idtPwdMain.text.toString()
 
-            if(idText.toString() == id && pwdText.toString() == pwd){
-                Toast.makeText(this@MainActivity, "로그인에 성공했습니다", Toast.LENGTH_SHORT).show()
+            if(idText == id && pwdText == pwd){
+                Toast.makeText(this@SignInActivity, "로그인에 성공했습니다", Toast.LENGTH_SHORT).show()
 
             }
             val intent1 = Intent(this, HomeActivity::class.java)
