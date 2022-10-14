@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import org.sopt.sample.databinding.FragmentGalleryBinding
-import org.sopt.sample.databinding.FragmentHomeBinding
-import org.sopt.sample.databinding.FragmentSearchBinding
 
 class GalleryFragment : Fragment() {
     private var _binding: FragmentGalleryBinding? = null
@@ -19,8 +17,8 @@ class GalleryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_gallery, container, false)
+        return super.onCreateView(inflater, container, savedInstanceState)
+
     }
 
     override fun onDestroyView() {
@@ -29,8 +27,8 @@ class GalleryFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(param1: String, param2: String) =
-            GalleryFragment().apply {
-            }
+        fun newInstance(): GalleryFragment {
+            return GalleryFragment()
+        }
     }
 }

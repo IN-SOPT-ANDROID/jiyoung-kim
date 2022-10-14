@@ -5,32 +5,48 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import org.sopt.sample.adapter.RepoAdapter
+import org.sopt.sample.data.RepoData
 import org.sopt.sample.databinding.FragmentHomeBinding
-import org.sopt.sample.databinding.FragmentSearchBinding
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
-    private val binding: FragmentHomeBinding
-        get() = requireNotNull(_binding) { "바인딩 객체 생성하고 써라 진짜 콱싀" }
+    private val binding get() = requireNotNull(_binding) { }
 
+    private val mockRepoList = listOf<RepoData>(
+        RepoData(R.drawable.github_logo,"A","jiyoung"),
+        RepoData(R.drawable.github_logo,"B","jiyoung"),
+        RepoData(R.drawable.github_logo,"C","jiyoung"),
+        RepoData(R.drawable.github_logo,"D","jiyoung"),
+        RepoData(R.drawable.github_logo,"E","jiyoung"),
+        RepoData(R.drawable.github_logo,"F","jiyoung"),
+        RepoData(R.drawable.github_logo,"G","jiyoung")
+    )
+
+    // onCreateView: UI의 초기화가 일어나는 부분
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val adapter = RepoAdapter(requireContext())
+        binding.rvRepos.adapter = adapter
+        adapter.setRepoList(mockRepoList)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 
     companion object {
-        fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
+        fun newInstance(): HomeFragment {
+            return HomeFragment()
+        }
     }
 }

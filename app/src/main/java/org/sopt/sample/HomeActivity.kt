@@ -10,14 +10,8 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        var getName = intent.getStringExtra("name")
-        var getMBTI = intent.getStringExtra("mbti")
-
-        if(intent.hasExtra("name") && intent.hasExtra("mbti")){
-            binding.textName.text = "이름: " + getName
-            binding.textMbti.text = "MBTI: " + getMBTI
-
-        }
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.home_container, HomeFragment.newInstance())
+            .commit()
     }
 }
