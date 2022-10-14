@@ -31,9 +31,11 @@
     <string name="home_icon">홈</string>
     <string name="icon_gallery">갤러리</string>
     <string name="icon_search">검색</string>
-    <string name="repo_name">repo name</string>
-    <string name="repo_author">repo_author</string>
+    <string name="song_name">song name</string>
+    <string name="repo_author">singer</string>
     <string name="jiyoung_kim">jiyoung Kim</string>
-    <string name="repo_name1">Repo name</string>
-    <string name="repo_name2">지영\'s 레포지토리</string>
+    <string name="song_name1">Repo name</string>
+    <string name="playlist_item">플레이리스트</string>
+    <string name="song_name2">song name</string>
+    <string name="txt_title">플레이리스트</string>
 </resources>

@@ -5,28 +5,28 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.sopt.sample.data.RepoData
-import org.sopt.sample.databinding.LayoutGithubRepoBinding
+import org.sopt.sample.data.PlaylistData
 import org.sopt.sample.databinding.LayoutHeaderBinding
+import org.sopt.sample.databinding.LayoutPlaylistBinding
 
-class RepoAdapter(context: Context): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class PlayListAdapter(context: Context): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val inflater by lazy { LayoutInflater.from(context) }
-    private var repoList: List<RepoData> = emptyList()
+    private var repoList: List<PlaylistData> = emptyList()
 
-    class RepoViewHolder(
-        private val binding: LayoutGithubRepoBinding,
+    class PlaylistViewHolder(
+        private val binding: LayoutPlaylistBinding,
     ): RecyclerView.ViewHolder(binding.root) {
-        fun onBind(data: RepoData){
-            binding.imgGithub.setImageDrawable(binding.root.context.getDrawable(data.image))
-            binding.txtRepoName.text = data.name
-            binding.txtRepoAuthor.text = data.author
+        fun onBind(data: PlaylistData){
+            binding.imgPlay.setImageDrawable(binding.root.context.getDrawable(data.image))
+            binding.txtSongName.text = data.name
+            binding.txtSinger.text = data.singer
         }
     }
 
-    class TextViewHolder(
+    class TitleViewHolder(
         private  val binding: LayoutHeaderBinding,
     ): RecyclerView.ViewHolder(binding.root) {
-        fun onBind(data: RepoData){
+        fun onBind(data: PlaylistData){
         }
     }
 
@@ -34,11 +34,11 @@ class RepoAdapter(context: Context): RecyclerView.Adapter<RecyclerView.ViewHolde
         return when (viewType){
             TEXT_HEADER -> {
                 val headerBinding = LayoutHeaderBinding.inflate(inflater, parent, false)
-                TextViewHolder((headerBinding))
+                TitleViewHolder((headerBinding))
             }
             TEXT_ITEM -> {
-                val repoBinding = LayoutGithubRepoBinding.inflate(inflater, parent, false)
-                RepoViewHolder(repoBinding)
+                val repoBinding = LayoutPlaylistBinding.inflate(inflater, parent, false)
+                PlaylistViewHolder(repoBinding)
             }
             else -> throw RuntimeException("알 수 없는 뷰 타입 에러")
         }
@@ -48,10 +48,10 @@ class RepoAdapter(context: Context): RecyclerView.Adapter<RecyclerView.ViewHolde
         Log.d("MultiViewTypeAdapter", "Hi, onBindViewHolder")
         val obj = (repoList[position])
         when (holder){
-            is TextViewHolder -> {
+            is TitleViewHolder -> {
                 holder.onBind(obj)
             }
-            is RepoViewHolder -> {
+            is PlaylistViewHolder -> {
                 holder.onBind(obj)
             }
         }
@@ -66,7 +66,7 @@ class RepoAdapter(context: Context): RecyclerView.Adapter<RecyclerView.ViewHolde
 
     override fun getItemCount(): Int = repoList.size
 
-    fun setRepoList(repoList: List<RepoData>) {
+    fun setRepoList(repoList: List<PlaylistData>) {
         this.repoList = repoList.toList()
         notifyDataSetChanged()
     }
