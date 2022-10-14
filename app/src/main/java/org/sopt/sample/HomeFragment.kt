@@ -13,7 +13,8 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = requireNotNull(_binding) { }
 
-    private val mockRepoList = listOf<PlaylistData>(
+    private val AlbumList = listOf<PlaylistData>(
+        PlaylistData(0,"",""),
         PlaylistData(R.drawable.play_button,"Forever 1","소녀시대"),
         PlaylistData(R.drawable.play_button,"마지막 인사","NCT DREAM"),
         PlaylistData(R.drawable.play_button,"ZOOM","제시 (Jessi)"),
@@ -39,7 +40,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val adapter = PlayListAdapter(requireContext())
         binding.rvRepos.adapter = adapter
-        adapter.setRepoList(mockRepoList)
+        adapter.setRepoList(AlbumList)
     }
 
     override fun onDestroyView() {
