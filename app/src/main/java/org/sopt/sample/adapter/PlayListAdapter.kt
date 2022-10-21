@@ -25,10 +25,7 @@ class PlayListAdapter(context: Context): RecyclerView.Adapter<RecyclerView.ViewH
 
     class TitleViewHolder(
         private  val binding: LayoutHeaderBinding,
-    ): RecyclerView.ViewHolder(binding.root) {
-        fun onBind(data: PlaylistData){
-        }
-    }
+    ): RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType){
@@ -46,17 +43,14 @@ class PlayListAdapter(context: Context): RecyclerView.Adapter<RecyclerView.ViewH
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         Log.d("MultiViewTypeAdapter", "position: $position")
-        val obj = (repoList[position])
+        val itemOfRepoList = (repoList[position])
         when (holder){
-            is TitleViewHolder -> {
-                holder.onBind(obj)
-            }
             is PlaylistViewHolder -> {
-                holder.onBind(obj)
+                holder.onBind(itemOfRepoList)
             }
         }
     }
-// 이부분이 문제인 것 같은데,,,title 아래에 item들을 넣을 방법이 없나
+
     override fun getItemViewType(position: Int): Int {
         return when(position) {
             0 -> TEXT_HEADER

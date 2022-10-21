@@ -6,4 +6,5 @@ data class PlaylistData (
     @DrawableRes val image:Int,
     val name: String,
     val singer: String,
+    val viewType: Int = 1
 )
