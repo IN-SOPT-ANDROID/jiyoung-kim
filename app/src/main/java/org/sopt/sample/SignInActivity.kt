@@ -52,7 +52,7 @@ class SignInActivity : AppCompatActivity() {
                 Toast.makeText(this@SignInActivity, "로그인에 성공했습니다", Toast.LENGTH_SHORT).show()
 
             }
-            val intent1 = Intent(this, HomeActivity::class.java)
+            val intent1 = Intent(this, ProfileActivity::class.java)
             intent1.putExtra("name", "김지영")
             intent1.putExtra("mbti",mbti)
             startActivity(intent1)
