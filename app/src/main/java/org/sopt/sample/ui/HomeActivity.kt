@@ -1,7 +1,8 @@
-package org.sopt.sample
+package org.sopt.sample.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import org.sopt.sample.R
 import org.sopt.sample.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {

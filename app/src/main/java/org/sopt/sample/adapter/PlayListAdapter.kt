@@ -24,7 +24,7 @@ class PlayListAdapter(context: Context): RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     class TitleViewHolder(
-        private  val binding: LayoutHeaderBinding,
+        private val binding: LayoutHeaderBinding,
     ): RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

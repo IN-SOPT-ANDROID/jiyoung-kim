@@ -1,10 +1,11 @@
-package org.sopt.sample
+package org.sopt.sample.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import org.sopt.sample.R
 import org.sopt.sample.adapter.PlayListAdapter
 import org.sopt.sample.data.PlaylistData
 import org.sopt.sample.databinding.FragmentHomeBinding

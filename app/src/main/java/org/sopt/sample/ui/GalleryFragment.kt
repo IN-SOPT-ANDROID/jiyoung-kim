@@ -1,4 +1,4 @@
-package org.sopt.sample
+package org.sopt.sample.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
