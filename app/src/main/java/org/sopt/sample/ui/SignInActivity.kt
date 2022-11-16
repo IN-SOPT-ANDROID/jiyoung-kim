@@ -7,7 +7,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
-import org.sopt.sample.data.ServicePool
+import org.sopt.sample.data.ApiFactory
 import org.sopt.sample.data.request.RequestSignIn
 import org.sopt.sample.data.response.ResponseSignIn
 import org.sopt.sample.databinding.ActivitySignInBinding
@@ -16,7 +16,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class SignInActivity : AppCompatActivity() {
-    private val signinService = ServicePool.signInService
     private lateinit var binding: ActivitySignInBinding
     private lateinit var startForResult: ActivityResultLauncher<Intent>
     var id: String = ""
@@ -53,13 +52,13 @@ class SignInActivity : AppCompatActivity() {
 
             if (idText == id && pwdText == pwd) {
                 Toast.makeText(this@SignInActivity, "로그인에 성공했습니다", Toast.LENGTH_SHORT).show()
+                val requestSignIn = RequestSignIn(
+                    binding.edtIdMain.toString(),
+                    binding.idtPwdMain.toString()
+                )
+                val call: Call<ResponseSignIn> = ApiFactory.authService.login(requestSignIn)
 
-                signinService.login(
-                    RequestSignIn(
-                        binding.edtIdMain.toString(),
-                        binding.idtPwdMain.toString()
-                    )
-                ).enqueue(object : Callback<ResponseSignIn> {
+                call.enqueue(object : Callback<ResponseSignIn> {
                     override fun onResponse(
                         call: Call<ResponseSignIn>,
                         response: Response<ResponseSignIn>

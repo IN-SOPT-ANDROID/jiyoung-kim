@@ -15,17 +15,17 @@ data class ResponseSignIn(
 ) {
     @Serializable
     data class Result(
-    @SerialName("bio")
-    val bio: String?,
-    @SerialName("email")
-    val email: String,
-    @SerialName("id")
-    val id: Int,
-    @SerialName("name")
-    val name: String,
-    @SerialName("password")
-    val password: String,
-    @SerialName("profileImage")
-    val profileImage: String?
+        @SerialName("id")
+        val id: Int,
+        @SerialName("name")
+        val name: String,
+        @SerialName("profileImage")
+        val profileImage: String?,
+        @SerialName("bio")
+        val bio: String?,
+        @SerialName("email")
+        val email: String,
+        @SerialName("password")
+        val password: String
     )
 }

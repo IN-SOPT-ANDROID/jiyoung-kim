@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import org.sopt.sample.data.ServicePool
+import org.sopt.sample.data.ApiFactory
 import org.sopt.sample.data.request.RequestSignUp
 import org.sopt.sample.data.response.ResponseSignUp
 import org.sopt.sample.databinding.ActivitySignUpBinding
@@ -14,7 +14,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class SignUpActivity : AppCompatActivity() {
-    private val signupService = ServicePool.signUpService
     private lateinit var binding: ActivitySignUpBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,13 +32,15 @@ class SignUpActivity : AppCompatActivity() {
                 Toast.makeText(this@SignUpActivity, "정보를 입력해주세요", Toast.LENGTH_SHORT).show()
             } else if (binding.edtId.text.length in 6..20 && binding.edtPwd.text.length in 8..12) {
                 Log.d("SignUpActivity", "34")
-                signupService.signUp(
-                    RequestSignUp(
-                        binding.edtId.toString(),
-                        binding.edtPwd.toString(),
-                        binding.edtName.toString()
-                    )
-                ).enqueue(object : Callback<ResponseSignUp> {
+
+                val requestSignUp = RequestSignUp(
+                    binding.edtId.toString(),
+                    binding.edtPwd.toString(),
+                    binding.edtName.toString()
+                )
+                val call: Call<ResponseSignUp> = ApiFactory.authService.signUp(requestSignUp)
+
+                call.enqueue(object : Callback<ResponseSignUp> {
                     override fun onResponse(
                         call: Call<ResponseSignUp>,
                         response: Response<ResponseSignUp>
