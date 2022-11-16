@@ -9,5 +9,5 @@ data class RequestSignUp(
     @SerialName("password")
     val password: String,
     @SerialName("name")
-    val name: String,
+    val name: String
 )

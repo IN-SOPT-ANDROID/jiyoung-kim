@@ -3,13 +3,13 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 @Serializable
 
-data class ResponseSignUp (
+data class ResponseSignUp(
     @SerialName("status")
-    val status: String,
+    val status: Int,
     @SerialName("message")
     val message: String,
     @SerialName("newUser")
-    val newUser: NewUser,
+    val newUser: NewUser
 ) {
     @Serializable
     data class NewUser(

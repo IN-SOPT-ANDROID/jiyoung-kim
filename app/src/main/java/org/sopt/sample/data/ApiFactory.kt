@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 object ApiFactory {
     val retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("http://3.39.169.52:3000")
+            .baseUrl("http://3.39.169.52:3000/")
             .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
             .build()
     }
