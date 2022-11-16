@@ -1,8 +1,7 @@
-package org.sopt.sample.data
+package org.sopt.sample.data.response
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import java.util.Objects
 
 @Serializable
 

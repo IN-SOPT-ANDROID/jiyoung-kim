@@ -84,7 +84,7 @@
         app:layout_constraintTop_toBottomOf="@+id/edt_pwd" />
 
     <EditText
-        android:id="@+id/edt_mbti"
+        android:id="@+id/edt_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -105,6 +105,6 @@
         android:text="@string/btn_signup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_mbti" />
+        app:layout_constraintTop_toBottomOf="@+id/edt_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
