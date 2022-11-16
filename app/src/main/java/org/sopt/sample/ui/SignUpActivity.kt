@@ -31,7 +31,7 @@ class SignUpActivity : AppCompatActivity() {
             if (binding.edtId.text == null || binding.edtPwd.text == null || binding.edtName.text == null) {
                 Log.d("SignUpActivity", "31")
                 Toast.makeText(this@SignUpActivity, "정보를 입력해주세요", Toast.LENGTH_SHORT).show()
-            } else if (binding.edtId.text.length in 6..10 && binding.edtPwd.text.length in 8..12) {
+            } else if (binding.edtId.text.length in 6..20 && binding.edtPwd.text.length in 8..12) {
                 Log.d("SignUpActivity", "34")
                 signupService.signUp(
                     RequestSignUp(
@@ -66,7 +66,8 @@ class SignUpActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<ResponseSignUp>, t: Throwable) { // 통신 실패
-                        Log.d("SignUpActivity", "68")
+                        Log.d("SignUpActivity", "68 ${t.message}")
+                        Log.e("SignUpActivity", t.message.toString(), t)
 //                        startActivity(
 //                            Intent(
 //                                this@SignUpActivity,
