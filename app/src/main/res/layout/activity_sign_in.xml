@@ -25,14 +25,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="@string/is_text"
+        android:text="@string/email_text"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_title" />
 
 
     <EditText
-        android:id="@+id/edt_id_main"
+        android:id="@+id/edt_email_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
@@ -55,7 +55,7 @@
         android:text="@string/text_pwd"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_id_main" />
+        app:layout_constraintTop_toBottomOf="@+id/edt_email_main" />
 
     <EditText
         android:id="@+id/idt_pwd_main"

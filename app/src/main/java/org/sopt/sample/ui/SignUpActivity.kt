@@ -2,6 +2,8 @@ package org.sopt.sample.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,69 +17,92 @@ import retrofit2.Response
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate((layoutInflater))
         setContentView(binding.root)
 
+//        binding.btnSignUp.isEnabled = false
+//        textStatus()
         clickSignUpBTN()
     }
 
     private fun clickSignUpBTN() {
         binding.btnSignUp.setOnClickListener {
-            // 하나라도 공백을 입력했을 때
-            Log.d("SignUpActivity", "29")
-            if (binding.edtId.text == null || binding.edtPwd.text == null || binding.edtName.text == null) {
-                Log.d("SignUpActivity", "31")
-                Toast.makeText(this@SignUpActivity, "정보를 입력해주세요", Toast.LENGTH_SHORT).show()
-            } else if (binding.edtId.text.length in 6..20 && binding.edtPwd.text.length in 8..12) {
-                Log.d("SignUpActivity", "34")
+//            // 하나라도 공백을 입력했을 때
+//            if (binding.edtEmail.text == null || binding.edtPwd.text == null || binding.edtName.text == null) {
+//                Toast.makeText(this@SignUpActivity, "정보를 입력해주세요", Toast.LENGTH_SHORT).show()
+//            }
 
-                val requestSignUp = RequestSignUp(
-                    binding.edtId.toString(),
-                    binding.edtPwd.toString(),
-                    binding.edtName.toString()
-                )
-                val call: Call<ResponseSignUp> = ApiFactory.authService.signUp(requestSignUp)
+            val requestSignUp = RequestSignUp(
+                binding.edtEmail.text.toString(),
+                binding.edtPwd.text.toString(),
+                binding.edtName.text.toString()
+            )
+            val call: Call<ResponseSignUp> = ApiFactory.authService.signUp(requestSignUp)
 
-                call.enqueue(object : Callback<ResponseSignUp> {
-                    override fun onResponse(
-                        call: Call<ResponseSignUp>,
-                        response: Response<ResponseSignUp>
-                    ) {
-                        Log.d("SignUpActivity", "542")
-                        Log.d("SignUpActivity", response.body().toString())
-                        if (response.isSuccessful) { // 통신 성공
-                            Log.d("check", "53")
-                            startActivity(
-                                Intent(
-                                    this@SignUpActivity,
-                                    SignInActivity::class.java
-                                )
-                            )
-                            Log.d("SignUpActivity", "60")
-                        } else {
-                            Log.d("SignUpActivity", "62")
-                            Toast.makeText(
+            call.enqueue(object : Callback<ResponseSignUp> {
+                override fun onResponse(
+                    call: Call<ResponseSignUp>,
+                    response: Response<ResponseSignUp>
+                ) {
+                    Log.d("SignUpActivity", response.body().toString())
+                    if (response.isSuccessful) { // 통신 성공
+                        Toast.makeText(
+                            this@SignUpActivity,
+                            "회원가입 축하드려요 :)",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        startActivity(
+                            Intent(
                                 this@SignUpActivity,
-                                "회원가입에 실패했어요 :(",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
+                                SignInActivity::class.java
+                            )
+                        )
+                    } else {
+                        Toast.makeText(
+                            this@SignUpActivity,
+                            "회원가입에 실패했어요 :(",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
+                }
 
-                    override fun onFailure(call: Call<ResponseSignUp>, t: Throwable) { // 통신 실패
-                        Log.d("SignUpActivity", "68 ${t.message}")
-                        Log.e("SignUpActivity", t.message.toString(), t)
-//                        startActivity(
-//                            Intent(
-//                                this@SignUpActivity,
-//                                SignUpActivity::class.java
-//                            )
-//                        )
-                    }
-                })
+                override fun onFailure(call: Call<ResponseSignUp>, t: Throwable) { // 통신 실패
+                    Log.e("SignUpActivity", t.message.toString(), t)
+                    startActivity(
+                        Intent(
+                            this@SignUpActivity,
+                            SignUpActivity::class.java
+                        )
+                    )
+                }
+            })
+        }
+    }
+
+    // edit text의 변화를 감지해주는 함수이다.
+    private fun textStatus() {
+        val isEmailFilled = binding.edtEmail.text.toString().isNotBlank()
+        val isPwdFilled = binding.edtPwd.text.toString().isNotBlank()
+        val isNameFilled = binding.edtName.text.toString().isNotBlank()
+
+        val textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                binding.btnSignUp.isEnabled = isEmailFilled && isPwdFilled && isNameFilled
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                binding.btnSignUp.isEnabled = isEmailFilled && isPwdFilled && isNameFilled
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.btnSignUp.isEnabled = isEmailFilled && isPwdFilled && isNameFilled
             }
         }
+        binding.edtEmail.addTextChangedListener(textWatcher)
+        binding.edtPwd.addTextChangedListener(textWatcher)
+        binding.edtName.addTextChangedListener(textWatcher)
     }
 }

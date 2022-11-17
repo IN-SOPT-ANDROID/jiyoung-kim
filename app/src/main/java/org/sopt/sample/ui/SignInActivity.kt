@@ -2,11 +2,9 @@ package org.sopt.sample.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
 import org.sopt.sample.data.ApiFactory
 import org.sopt.sample.data.request.RequestSignIn
 import org.sopt.sample.data.response.ResponseSignIn
@@ -17,83 +15,77 @@ import retrofit2.Response
 
 class SignInActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignInBinding
-    private lateinit var startForResult: ActivityResultLauncher<Intent>
-    var id: String = ""
-    var pwd: String = ""
-    var mbti: String = ""
+//    private lateinit var startForResult: ActivityResultLauncher<Intent>
+//    var email: String = ""
+//    var pwd: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        println("36")
 
-        startForResult = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result ->
-            if (result.resultCode == RESULT_OK) {
-                println("31")
-                Snackbar.make(binding.root, "회원가입이 완료되었습니다", Snackbar.LENGTH_SHORT).show()
-                val getID = result.data?.getStringExtra("id") ?: ""
-                val getPWD = result.data?.getStringExtra("pwd") ?: ""
-                val getMBTI = result.data?.getStringExtra("mbti") ?: ""
-                id = getID
-                pwd = getPWD
-                mbti = getMBTI
-            }
-        }
         clickLoginBTN()
         clickSignUpBTN()
     }
+
     private fun clickLoginBTN() {
-        binding.btnLogin.setOnClickListener() {
-            val idText = binding.edtIdMain.text.toString()
-            val pwdText = binding.idtPwdMain.text.toString()
+        Log.d("SignIn", "46")
+        binding.btnLogin.setOnClickListener {
+            val email = binding.edtEmailMain.text.toString()
+            val password = binding.idtPwdMain.text.toString()
 
-            if (idText == id && pwdText == pwd) {
-                Toast.makeText(this@SignInActivity, "로그인에 성공했습니다", Toast.LENGTH_SHORT).show()
-                val requestSignIn = RequestSignIn(
-                    binding.edtIdMain.toString(),
-                    binding.idtPwdMain.toString()
-                )
-                val call: Call<ResponseSignIn> = ApiFactory.authService.login(requestSignIn)
+            val requestSignIn = RequestSignIn(
+                email,
+                password
+            )
+            val call: Call<ResponseSignIn> = ApiFactory.authService.login(requestSignIn)
 
-                call.enqueue(object : Callback<ResponseSignIn> {
-                    override fun onResponse(
-                        call: Call<ResponseSignIn>,
-                        response: Response<ResponseSignIn>
-                    ) {
+            call.enqueue(object : Callback<ResponseSignIn> {
+                override fun onResponse(
+                    call: Call<ResponseSignIn>,
+                    response: Response<ResponseSignIn>
+                ) {
+                    if (response.isSuccessful) {
+                        Log.d("SignIn", "64")
+                        Toast.makeText(this@SignInActivity, "로그인에 성공했습니다", Toast.LENGTH_SHORT)
+                            .show()
                         startActivity(
                             Intent(
                                 this@SignInActivity,
                                 ProfileActivity::class.java
                             )
                         )
-                    }
-
-                    override fun onFailure(call: Call<ResponseSignIn>, t: Throwable) {
-                        startActivity(
-                            Intent(
-                                this@SignInActivity,
-                                SignInActivity::class.java
-                            )
+                    } else if (response.code() == 404) {
+                        Log.d("SignIn", "73")
+                        Toast.makeText(
+                            this@SignInActivity,
+                            "네트워크 연결이 원활하지 않습니다 ;(",
+                            Toast.LENGTH_SHORT
                         )
+                            .show()
+                    } else if (response.code() == 401) {
+                        Log.d("SignIn", "81")
+                        Toast.makeText(this@SignInActivity, "인증방식이 만료되었습니다 ;(", Toast.LENGTH_SHORT)
+                            .show()
                     }
-                })
-            } else {
-                Toast.makeText(this@SignInActivity, "로그인에 실패했어요 :(", Toast.LENGTH_SHORT).show()
-            }
-//            val intent1 = Intent(this, ProfileActivity::class.java)
-//            intent1.putExtra("name", "김지영")
-//            intent1.putExtra("mbti",mbti)
-//            startActivity(intent1)
+                }
+
+                override fun onFailure(call: Call<ResponseSignIn>, t: Throwable) {
+                    Log.d("SignIn", "88")
+                    Toast.makeText(this@SignInActivity, "로그인에 실패했어요 :(", Toast.LENGTH_SHORT).show()
+                }
+            })
         }
     }
 
     private fun clickSignUpBTN() {
         binding.btnSignup.setOnClickListener() {
-            val intent = Intent(this, SignUpActivity::class.java)
-            startForResult.launch(intent)
+            startActivity(
+                Intent(
+                    this@SignInActivity,
+                    SignUpActivity::class.java
+                )
+            )
         }
     }
 }
