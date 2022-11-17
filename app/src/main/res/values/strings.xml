@@ -38,4 +38,6 @@
     <string name="playlist_item">플레이리스트</string>
     <string name="song_name2">song name</string>
     <string name="txt_title">플레이리스트</string>
+    <string name="user_name">user name</string>
+    <string name="user_email">user email</string>
 </resources>

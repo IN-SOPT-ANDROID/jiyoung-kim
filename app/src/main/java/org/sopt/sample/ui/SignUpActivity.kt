@@ -22,19 +22,11 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate((layoutInflater))
         setContentView(binding.root)
-
-//        binding.btnSignUp.isEnabled = false
-//        textStatus()
         clickSignUpBTN()
     }
 
     private fun clickSignUpBTN() {
         binding.btnSignUp.setOnClickListener {
-//            // 하나라도 공백을 입력했을 때
-//            if (binding.edtEmail.text == null || binding.edtPwd.text == null || binding.edtName.text == null) {
-//                Toast.makeText(this@SignUpActivity, "정보를 입력해주세요", Toast.LENGTH_SHORT).show()
-//            }
-
             val requestSignUp = RequestSignUp(
                 binding.edtEmail.text.toString(),
                 binding.edtPwd.text.toString(),

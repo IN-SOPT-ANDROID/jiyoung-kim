@@ -1,47 +1,57 @@
 package org.sopt.sample.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import org.sopt.sample.R
-import org.sopt.sample.adapter.PlayListAdapter
-import org.sopt.sample.data.PlaylistData
-import org.sopt.sample.databinding.FragmentHomeBinding
+import androidx.fragment.app.Fragment
+import org.sopt.sample.adapter.UserDataAdapter
+import org.sopt.sample.data.UserFactory
+import org.sopt.sample.data.response.ResponseUser
+import org.sopt.sample.databinding.FragmentHome2Binding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class HomeFragment : Fragment() {
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentHome2Binding? = null
     private val binding get() = requireNotNull(_binding) { }
 
-    private val AlbumList = listOf<PlaylistData>(
-        PlaylistData(0,"",""),
-        PlaylistData(R.drawable.play_button,"Forever 1","소녀시대"),
-        PlaylistData(R.drawable.play_button,"마지막 인사","NCT DREAM"),
-        PlaylistData(R.drawable.play_button,"ZOOM","제시 (Jessi)"),
-        PlaylistData(R.drawable.play_button,"Hype boy","NewJeans"),
-        PlaylistData(R.drawable.play_button,"Girls","aespa"),
-        PlaylistData(R.drawable.play_button,"LOVE DIVE","IVE (아이브)"),
-        PlaylistData(R.drawable.play_button,"도깨비불","aespa"),
-        PlaylistData(R.drawable.play_button,"HOT","세븐틴"),
-        PlaylistData(R.drawable.play_button,"Hurt","NewJeans")
-    )
-
-    // onCreateView: UI의 초기화가 일어나는 부분
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentHome2Binding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = PlayListAdapter(requireContext())
-        binding.rvRepos.adapter = adapter
-        adapter.setRepoList(AlbumList)
+        val adapter = UserDataAdapter(requireContext())
+        binding.rcvProfile.adapter = adapter
+
+        val call: Call<ResponseUser> = UserFactory.userService.getUser()
+
+        call.enqueue(object : Callback<ResponseUser> {
+            override fun onResponse(
+                call: Call<ResponseUser>,
+                response: Response<ResponseUser>
+            ) {
+                Log.d("Home", "42")
+                Log.d("Home", response.body().toString())
+                if (response.isSuccessful) { // 통신 성공
+                    response.body()?.let {
+                        adapter.setRepoList(it.data)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseUser>, t: Throwable) { // 통신 실패
+                Log.e("ProfileActivity", t.message.toString(), t)
+            }
+        })
     }
 
     override fun onDestroyView() {
@@ -49,9 +59,4 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-    companion object {
-        fun newInstance(): HomeFragment {
-            return HomeFragment()
-        }
-    }
 }

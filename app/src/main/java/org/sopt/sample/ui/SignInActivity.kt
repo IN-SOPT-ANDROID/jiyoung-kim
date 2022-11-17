@@ -15,9 +15,6 @@ import retrofit2.Response
 
 class SignInActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignInBinding
-//    private lateinit var startForResult: ActivityResultLauncher<Intent>
-//    var email: String = ""
-//    var pwd: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +49,7 @@ class SignInActivity : AppCompatActivity() {
                         startActivity(
                             Intent(
                                 this@SignInActivity,
-                                ProfileActivity::class.java
+                                HomeActivity::class.java
                             )
                         )
                     } else if (response.code() == 404) {
