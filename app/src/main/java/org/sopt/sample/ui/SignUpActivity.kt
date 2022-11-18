@@ -22,6 +22,8 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate((layoutInflater))
         setContentView(binding.root)
+
+        textStatus()
         clickSignUpBTN()
     }
 
@@ -81,16 +83,24 @@ class SignUpActivity : AppCompatActivity() {
         val isNameFilled = binding.edtName.text.toString().isNotBlank()
 
         val textWatcher = object : TextWatcher {
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                binding.btnSignUp.isEnabled = isEmailFilled && isPwdFilled && isNameFilled
+//                binding.btnSignUp.isEnabled = isEmailFilled && isPwdFilled && isNameFilled
+                if (isEmailFilled && isPwdFilled && isNameFilled) {
+                    binding.btnSignUp.isEnabled = true
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {
-                binding.btnSignUp.isEnabled = isEmailFilled && isPwdFilled && isNameFilled
+                if (isEmailFilled && isPwdFilled && isNameFilled) {
+                    binding.btnSignUp.isEnabled = true
+                }
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                binding.btnSignUp.isEnabled = isEmailFilled && isPwdFilled && isNameFilled
+                if (isEmailFilled && isPwdFilled && isNameFilled) {
+                    binding.btnSignUp.isEnabled = true
+                }
             }
         }
         binding.edtEmail.addTextChangedListener(textWatcher)

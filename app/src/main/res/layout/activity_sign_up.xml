@@ -108,6 +108,7 @@
         android:layout_marginTop="20dp"
         android:text="@string/btn_signup"
         android:textColor="#FFFFFF"
+        android:enabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_name" />
