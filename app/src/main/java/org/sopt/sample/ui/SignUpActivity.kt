@@ -23,7 +23,7 @@ class SignUpActivity : AppCompatActivity() {
         binding = ActivitySignUpBinding.inflate((layoutInflater))
         setContentView(binding.root)
 
-        textStatus()
+//        textStatus()
         clickSignUpBTN()
     }
 
