@@ -1,4 +1,4 @@
-package org.sopt.sample.ui
+package org.sopt.sample.ui.home
 
 import android.os.Bundle
 import android.util.Log
@@ -6,16 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import org.sopt.sample.adapter.UserDataAdapter
-import org.sopt.sample.data.UserFactory
+import org.sopt.sample.data.ApiFactory
 import org.sopt.sample.data.response.ResponseUser
-import org.sopt.sample.databinding.FragmentHome2Binding
+import org.sopt.sample.databinding.FragmentHomeBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class HomeFragment : Fragment() {
-    private var _binding: FragmentHome2Binding? = null
+    private var _binding: FragmentHomeBinding? = null
     private val binding get() = requireNotNull(_binding) { }
 
     override fun onCreateView(
@@ -23,7 +22,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHome2Binding.inflate(inflater, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -32,7 +31,7 @@ class HomeFragment : Fragment() {
         val adapter = UserDataAdapter(requireContext())
         binding.rcvProfile.adapter = adapter
 
-        val call: Call<ResponseUser> = UserFactory.userService.getUser()
+        val call: Call<ResponseUser> = ApiFactory.userService.getUser()
 
         call.enqueue(object : Callback<ResponseUser> {
             override fun onResponse(

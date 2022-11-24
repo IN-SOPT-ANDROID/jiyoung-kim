@@ -1,4 +1,4 @@
-package org.sopt.sample.adapter
+package org.sopt.sample.ui.playlist
 
 import android.content.Context
 import android.util.Log

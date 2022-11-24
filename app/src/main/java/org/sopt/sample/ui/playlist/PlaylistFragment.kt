@@ -1,4 +1,4 @@
-package org.sopt.sample.ui
+package org.sopt.sample.ui.playlist
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,12 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import org.sopt.sample.R
-import org.sopt.sample.adapter.PlayListAdapter
 import org.sopt.sample.data.PlaylistData
-import org.sopt.sample.databinding.FragmentHomeBinding
+import org.sopt.sample.databinding.FragmentPlaylistBinding
 
 class PlaylistFragment : Fragment() {
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentPlaylistBinding? = null
     private val binding get() = requireNotNull(_binding) { }
 
     private val AlbumList = listOf<PlaylistData>(
@@ -33,7 +32,7 @@ class PlaylistFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentPlaylistBinding.inflate(inflater, container, false)
         return binding.root
     }
 
