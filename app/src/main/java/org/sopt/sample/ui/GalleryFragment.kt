@@ -1,4 +1,4 @@
-package org.sopt.sample
+package org.sopt.sample.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,12 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import org.sopt.sample.databinding.FragmentGalleryBinding
-import org.sopt.sample.databinding.FragmentSearchBinding
 
-
-class SearchFragment : Fragment() {
-    private var _binding: FragmentSearchBinding? = null
-    private val binding: FragmentSearchBinding
+class GalleryFragment : Fragment() {
+    private var _binding: FragmentGalleryBinding? = null
+    private val binding: FragmentGalleryBinding
         get() = requireNotNull(_binding) { "바인딩 객체 생성하고 써라 진짜 콱싀" }
 
 
@@ -29,8 +27,8 @@ class SearchFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(): SearchFragment {
-            return SearchFragment()
+        fun newInstance(): GalleryFragment {
+            return GalleryFragment()
         }
     }
 }

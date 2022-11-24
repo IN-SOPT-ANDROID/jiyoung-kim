@@ -9,23 +9,23 @@
     <string name="input_mbti">input_mbti</string>
     <string name="회원가입">btn_signUp</string>
     <string name="btn_signUp">회원가입</string>
-    <string name="text_id">ID</string>
-    <string name="inpt_id">아이디를 입력하세요</string>
+    <string name="text_email">EMAIL</string>
+    <string name="inpt_id">이메일을 입력하세요</string>
     <string name="inpt_pwd">비밀번호를 입력하세요</string>
-    <string name="inpt_mbti">MBTI를 입력하세요</string>
+    <string name="inpt_mbti">이름을 입력하세요</string>
     <string name="text_signup">SIGNUP</string>
-    <string name="btn_signup">회원가입 완료</string>
+    <string name="btn_signup">완료</string>
     <string name="textview2">textview2</string>
     <string name="textview1">textview1</string>
     <string name="welcome_to_sopt">welcome_to_sopt</string>
     <string name="btn_login">LOGIN</string>
-    <string name="text_pwd">비밀번호</string>
+    <string name="text_pwd">PASSWORD</string>
     <string name="password_input">비밀번호를 입력하세요</string>
-    <string name="id_input">아이디를 입력하세요</string>
-    <string name="is_text">ID</string>
+    <string name="id_input">이메일을 입력하세요</string>
+    <string name="email_text">EMAIL</string>
     <string name="welcome_title">Welcome to sopt</string>
     <string name="pwd">비밀번호</string>
-    <string name="mbti_">MBTI</string>
+    <string name="mbti_">이름</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home_icon">홈</string>
@@ -38,4 +38,6 @@
     <string name="playlist_item">플레이리스트</string>
     <string name="song_name2">song name</string>
     <string name="txt_title">플레이리스트</string>
+    <string name="user_name">user name</string>
+    <string name="user_email">user email</string>
 </resources>

@@ -1,4 +1,4 @@
-package org.sopt.sample.adapter
+package org.sopt.sample.ui.playlist
 
 import android.content.Context
 import android.util.Log
@@ -9,14 +9,14 @@ import org.sopt.sample.data.PlaylistData
 import org.sopt.sample.databinding.LayoutHeaderBinding
 import org.sopt.sample.databinding.LayoutPlaylistBinding
 
-class PlayListAdapter(context: Context): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class PlayListAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val inflater by lazy { LayoutInflater.from(context) }
     private var repoList: List<PlaylistData> = emptyList()
 
     class PlaylistViewHolder(
-        private val binding: LayoutPlaylistBinding,
-    ): RecyclerView.ViewHolder(binding.root) {
-        fun onBind(data: PlaylistData){
+        private val binding: LayoutPlaylistBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun onBind(data: PlaylistData) {
             binding.imgPlay.setImageDrawable(binding.root.context.getDrawable(data.image))
             binding.txtSongName.text = data.name
             binding.txtSinger.text = data.singer
@@ -24,11 +24,11 @@ class PlayListAdapter(context: Context): RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     class TitleViewHolder(
-        private  val binding: LayoutHeaderBinding,
-    ): RecyclerView.ViewHolder(binding.root)
+        private val binding: LayoutHeaderBinding
+    ) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType){
+        return when (viewType) {
             TEXT_HEADER -> {
                 val headerBinding = LayoutHeaderBinding.inflate(inflater, parent, false)
                 TitleViewHolder((headerBinding))
@@ -44,7 +44,7 @@ class PlayListAdapter(context: Context): RecyclerView.Adapter<RecyclerView.ViewH
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         Log.d("MultiViewTypeAdapter", "position: $position")
         val itemOfRepoList = (repoList[position])
-        when (holder){
+        when (holder) {
             is PlaylistViewHolder -> {
                 holder.onBind(itemOfRepoList)
             }
@@ -52,7 +52,7 @@ class PlayListAdapter(context: Context): RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when(position) {
+        return when (position) {
             0 -> TEXT_HEADER
             else -> TEXT_ITEM
         }
@@ -65,9 +65,8 @@ class PlayListAdapter(context: Context): RecyclerView.Adapter<RecyclerView.ViewH
         notifyDataSetChanged()
     }
 
-companion object{
-    const val TEXT_HEADER = 0
-    const val TEXT_ITEM = 1
-}
-
+    companion object {
+        const val TEXT_HEADER = 0
+        const val TEXT_ITEM = 1
+    }
 }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingHorizontal="20dp"
-    tools:context=".SignUpActivity">
+    tools:context=".ui.auth.SignUpActivity">
 
     <TextView
         android:id="@+id/txt_title"
@@ -21,31 +21,32 @@
         app:layout_constraintVertical_bias="0.082" />
 
     <TextView
-        android:id="@+id/txt_id"
+        android:id="@+id/txt_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="@string/text_id"
+        android:text="@string/text_email"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_title" />
 
 
     <EditText
-        android:id="@+id/edt_id"
+        android:id="@+id/edt_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
         android:layout_marginTop="15dp"
-        android:autofillHints=""
+        android:autofillHints="no"
         android:ems="10"
         android:hint="@string/inpt_id"
         android:inputType="textPersonName"
         android:minHeight="48dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.185"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_id" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_email" />
 
     <TextView
         android:id="@+id/txt_pwd"
@@ -55,7 +56,7 @@
         android:text="@string/pwd"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_id" />
+        app:layout_constraintTop_toBottomOf="@+id/edt_email" />
 
     <EditText
         android:id="@+id/edt_pwd"
@@ -69,7 +70,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_pwd" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_pwd"
+        android:autofillHints="no" />
 
     <TextView
         android:id="@+id/txt_mbti"
@@ -84,7 +86,7 @@
         app:layout_constraintTop_toBottomOf="@+id/edt_pwd" />
 
     <EditText
-        android:id="@+id/edt_mbti"
+        android:id="@+id/edt_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -92,19 +94,23 @@
         android:hint="@string/inpt_mbti"
         android:inputType="textPersonName"
         android:minHeight="48dp"
+        android:autofillHints="no"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_mbti" />
 
     <Button
+
         android:id="@+id/btn_signUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/btn_signup"
+        android:textColor="#FFFFFF"
+        android:enabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_mbti" />
+        app:layout_constraintTop_toBottomOf="@+id/edt_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
