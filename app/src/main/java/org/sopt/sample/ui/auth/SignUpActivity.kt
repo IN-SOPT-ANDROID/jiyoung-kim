@@ -69,18 +69,11 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun textStatus() {
-//        var emailText = ""
-//        var nameText = ""
-//        var pwdText = ""
 
         binding.edtEmail.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-//                emailText = binding.edtEmail.text.toString()
-//
-//                binding.btnSignUp.isEnabled =
-//                    emailText.isNotEmpty() && nameText.isNotEmpty() && pwdText.isNotEmpty()
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -91,7 +84,7 @@ class SignUpActivity : AppCompatActivity() {
                             isEmailCompleted = false
                         }
                         !emailRegex(p0.toString()) -> {
-                            binding.emailTil.error = "아이디 양식이 맞지 않습니다"
+                            binding.emailTil.error = "영문,숫자를 포함해주세요"
                             isEmailCompleted = false
                         }
                         else -> {
@@ -140,7 +133,7 @@ class SignUpActivity : AppCompatActivity() {
                             isPWDCompleted = false
                         }
                         !passwordRegex(p0.toString()) -> {
-                            binding.pwdTil.error = "비밀번호 양식이 맞지 않습니다"
+                            binding.pwdTil.error = "영문, 숫자, 특수문자를 포함해주세요"
                             isPWDCompleted = false
                         }
                         else -> {
