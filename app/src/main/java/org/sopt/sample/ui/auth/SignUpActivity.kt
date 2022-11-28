@@ -86,6 +86,10 @@ class SignUpActivity : AppCompatActivity() {
             override fun afterTextChanged(p0: Editable?) {
                 if (p0 != null) {
                     when {
+                        p0.isEmpty() -> {
+                            binding.emailTil.isErrorEnabled = false
+                            isEmailCompleted = false
+                        }
                         !emailRegex(p0.toString()) -> {
                             binding.emailTil.error = "아이디 양식이 맞지 않습니다"
                             isEmailCompleted = false
@@ -110,7 +114,6 @@ class SignUpActivity : AppCompatActivity() {
                 if (p0 != null) {
                     when {
                         p0.isEmpty() -> {
-                            binding.nameTil.error = "이름을 입력해주세요"
                             isNameCompleted = false
                         }
                         else -> {
@@ -132,6 +135,10 @@ class SignUpActivity : AppCompatActivity() {
             override fun afterTextChanged(p0: Editable?) {
                 if (p0 != null) {
                     when {
+                        p0.isEmpty() -> {
+                            binding.pwdTil.isErrorEnabled = false
+                            isPWDCompleted = false
+                        }
                         !passwordRegex(p0.toString()) -> {
                             binding.pwdTil.error = "비밀번호 양식이 맞지 않습니다"
                             isPWDCompleted = false
