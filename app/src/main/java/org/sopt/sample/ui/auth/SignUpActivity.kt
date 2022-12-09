@@ -13,6 +13,10 @@ class SignUpActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignUpBinding
     private val viewModel by viewModels<SignUpViewModel>()
+    private var isEmailCompleted = false
+    private var isPWDCompleted = false
+    private var isNameCompleted = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate((layoutInflater))
@@ -20,6 +24,10 @@ class SignUpActivity : AppCompatActivity() {
         binding.btnSignUp.isEnabled = false
         textStatus()
         clickSignUpBTN()
+    }
+
+    private fun signUpCheck() {
+        binding.btnSignUp.isEnabled = isEmailCompleted && isPWDCompleted && isNameCompleted
     }
 
     private fun clickSignUpBTN() {
@@ -52,46 +60,90 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
+    private fun passwordRegex(password: String): Boolean {
+        return password.matches("^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&.])[A-Za-z[0-9]$@$!%*#?&.]{6,12}$".toRegex())
+    }
+
+    private fun emailRegex(email: String): Boolean {
+        return email.matches("^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z[0-9]]{6,10}$".toRegex())
+    }
+
     private fun textStatus() {
-        var emailText = ""
-        var nameText = ""
-        var pwdText = ""
 
         binding.edtEmail.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                emailText = binding.edtEmail.text.toString()
-
-                binding.btnSignUp.isEnabled =
-                    emailText.isNotEmpty() && nameText.isNotEmpty() && pwdText.isNotEmpty()
             }
 
-            override fun afterTextChanged(p0: Editable?) {}
+            override fun afterTextChanged(p0: Editable?) {
+                if (p0 != null) {
+                    when {
+                        p0.isEmpty() -> {
+                            binding.emailTil.isErrorEnabled = false
+                            isEmailCompleted = false
+                        }
+                        !emailRegex(p0.toString()) -> {
+                            binding.emailTil.error = "영문,숫자를 포함해주세요"
+                            isEmailCompleted = false
+                        }
+                        else -> {
+                            binding.emailTil.error = null
+                            isEmailCompleted = true
+                        }
+                    }
+                    signUpCheck()
+                }
+            }
         })
+
         binding.edtName.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                nameText = binding.edtName.text.toString()
-
-                binding.btnSignUp.isEnabled =
-                    emailText.isNotEmpty() && nameText.isNotEmpty() && pwdText.isNotEmpty()
             }
 
-            override fun afterTextChanged(p0: Editable?) {}
+            override fun afterTextChanged(p0: Editable?) {
+                if (p0 != null) {
+                    when {
+                        p0.isEmpty() -> {
+                            isNameCompleted = false
+                        }
+                        else -> {
+                            binding.nameTil.error = null
+                            isNameCompleted = true
+                        }
+                    }
+                    signUpCheck()
+                }
+            }
         })
+
         binding.edtPwd.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                pwdText = binding.edtPwd.text.toString()
-
-                binding.btnSignUp.isEnabled =
-                    emailText.isNotEmpty() && nameText.isNotEmpty() && pwdText.isNotEmpty()
             }
 
-            override fun afterTextChanged(p0: Editable?) {}
+            override fun afterTextChanged(p0: Editable?) {
+                if (p0 != null) {
+                    when {
+                        p0.isEmpty() -> {
+                            binding.pwdTil.isErrorEnabled = false
+                            isPWDCompleted = false
+                        }
+                        !passwordRegex(p0.toString()) -> {
+                            binding.pwdTil.error = "영문, 숫자, 특수문자를 포함해주세요"
+                            isPWDCompleted = false
+                        }
+                        else -> {
+                            binding.pwdTil.error = null
+                            isPWDCompleted = true
+                        }
+                    }
+                    signUpCheck()
+                }
+            }
         })
     }
 }
